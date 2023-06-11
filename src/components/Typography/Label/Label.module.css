@@ -1,0 +1,8 @@
+.container {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-sm);
+  font-weight: var(--font-weight-lg);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-gray-70);
+}

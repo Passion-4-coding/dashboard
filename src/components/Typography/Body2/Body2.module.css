@@ -1,0 +1,7 @@
+.body2 {
+  color: var(--color-gray);
+  font-weight: var(--font-weight-sm);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-md);
+  margin: 0px;
+}

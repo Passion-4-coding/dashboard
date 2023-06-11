@@ -1,0 +1,7 @@
+.caption {
+  color: var(--color-gray-70);
+  font-weight: var(--font-weight-md);
+  font-size: var(--font-size-xs);
+  line-height: 16px;
+  margin: 0px;
+}

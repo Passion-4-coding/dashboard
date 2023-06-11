@@ -1,0 +1,50 @@
+.menu:global(.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected) {
+  background-color: var(--color-primary-10);
+  border-radius: var(--border-radius);
+  color: var(--color-primary-80);
+}
+
+.menu:global(.ant-menu:not(.ant-menu-horizontal) .ant-menu-item) {
+  height: 38px;
+}
+
+.menu:global(.ant-menu-inline), .menu:global(.ant-menu-vertical) {
+  border-right: none;
+  border-inline-end: none !important;
+}
+
+.menu:global(.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .ant-menu-title-content a) {
+  color: var(--color-primary-80);
+}
+
+.menu:global(.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected::after) {
+  border-right: none;
+}
+
+:global(.ant-menu-inline) {
+  border-right: none;
+}
+
+.menu :global(.ant-menu-item svg) {
+  --stroke: var(--color-gray-60);
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+
+.menu :global(.ant-menu-item .ant-menu-title-content a) {
+  color: var(--color-gray-90);
+}
+
+.menu :global(.ant-menu-item:not(.ant-menu-item-selected):hover svg) {
+  --stroke: var(--color-gray-80);
+}
+
+.menu :global(.ant-menu-item.ant-menu-item-selected svg) {
+  --stroke: var(--color-primary-80);
+}
+
+.menu :global(.ant-menu-item:not(.ant-menu-item-selected):hover .ant-menu-title-content a) {
+  color: var(--color-gray);
+}

@@ -1,0 +1,7 @@
+.button2 {
+  color: var(--color-gray);
+  font-weight: var(--font-weight-md);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-md);
+  margin: 0px;
+}

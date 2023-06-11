@@ -1,69 +1,171 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* COLORS */
+  --color-primary: #5a0080;
+  --color-primary-80: #7d00b3;
+  --color-primary-60: #a100e6;
+  --color-primary-50: #bb1aff;
+  --color-primary-40: #ca4dff;
+  --color-primary-30: #d980ff;
+  --color-primary-20: #e8b3ff;
+  --color-primary-10: #f7e5ff;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --color-gray: #24262B;
+  --color-gray-10: #F5F7F9;
+  --color-gray-20: #EEEFF1;
+  --color-gray-30: #DCDEE3;
+  --color-gray-40: #C7CAD1;
+  --color-gray-50: #AEB2BC;
+  --color-gray-60: #9499A5;
+  --color-gray-70: #7F8493;
+  --color-gray-80: #595E6A;
+  --color-gray-90: #363840;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  --color-green-10: #F5FEF6;
+  --color-green-20: #DBF0E3;
+  --color-green-60: #52BC85;
+  --color-green-70: #05A35C;
+  --color-green-80: #047844;
+
+  --color-red-10: #FEF2F2;
+  --color-red-20: #F6C2C2;
+  --color-red-60: #E16F6F;
+  --color-red-70: #DC2626;
+  --color-red-80: #B91C1C;
+
+  --color-yellow-10: #FDF7E8;
+  --color-yellow-20: #F6E6C2;
+  --color-yellow-70: #FFB81F;
+  --color-yellow-80: #E49701;
+
+  --color-orange-10: #FEF7EE;
+  --color-orange-20: #FEEDD6;
+  --color-orange-70: #EF6E25;
+  --color-orange-80: #D35F1D;
+
+  --color-violet-70: #9200EC;
+  --color-violet-10: #EDE9FE;
+
+  --color-background: #f6f8fa;
+  --color-secondary: #73C9BE;
+  --color-light-green: #afece5;
+  --color-white: #ffffff;
+  --color-text: #00002C;
+  --color-light-gray: #efefef;
+  --color-danger: #C92C2C;
+  
+  --color-orange: #eaa61d;
+  --color-green: #62ba65;
+  --color-black: #000000;
+
+  /* TYPOGRAPHY */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-h1: 24px;
+
+  --font-weight-sm: 400; 
+  --font-weight-md: 500; 
+  --font-weight-lg: 600; 
+
+  --line-height-sm: 14px;
+  --line-height-md: 20px;
+  --line-height-lg: 24px;
+  --line-height-h1: 32px;
+
+
+  --border-radius: 6px;
+}
+
+
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+html, body, #root {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  overflow: hidden;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: inherit;
+  text-decoration: none;
 }
+
+img {
+  max-width: 100%;
+}
+
+p, h1, h2, h3, h4, h5 {
+  margin: 0px;
+  color: var(--color-text);
+}
+
 a:hover {
-  color: #535bf2;
+  color: inherit;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* FORM & FORM ITEMS */
+
+.ant-form-item {
+  margin-bottom: 16px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.ant-form-item .ant-form-item-label {
+  padding: 0px;
+  margin: 0px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.ant-form-item .ant-form-item-label label {
+  color: var(--color-gray-80);
+  height: auto;
+  font-weight: var(--font-weight-md);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-md);
+}
+
+/* DRAWER */
+
+.ant-drawer .ant-drawer-header-title {
+  flex-direction: row-reverse;
+}
+
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/inter-v12-latin-regular.woff2') format('woff2'),
+       url('./fonts/inter-v12-latin-regular.woff') format('woff');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  src: url('./fonts/inter-v12-latin-500.woff2') format('woff2'),
+       url('./fonts/inter-v12-latin-500.woff') format('woff');
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./fonts/inter-v12-latin-600.woff2') format('woff2'),
+       url('./fonts/inter-v12-latin-600.woff') format('woff');
+}
+
+/** Overrides **/
+.ant-tooltip .ant-tooltip-inner.ant-tooltip-inner {
+  background-color: var(--color-gray);
+  font-size: var(--font-size-sm);
+  text-align: center;
 }

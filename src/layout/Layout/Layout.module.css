@@ -1,0 +1,35 @@
+.sider-header {
+  padding: 18px 10px;
+  letter-spacing: 2px;
+  color: var(--color-primary)
+}
+
+.content {
+  overflow: auto;
+  height: 100vh;
+  padding: 24px;
+}
+
+header.header {
+  top: 0;
+  position: sticky;
+  padding: 10px 24px;
+  height: 60px;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-30);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  justify-content: space-between;
+}
+
+.container :global(.ant-layout-sider-light .ant-layout-sider-trigger) {
+  display: none;
+}
+
+aside.sider:global(.ant-layout-sider) {
+  background-color: var(--color-white);
+  border-right: 1px solid var(--color-gray-30);
+  padding: 0px 5px;
+}
