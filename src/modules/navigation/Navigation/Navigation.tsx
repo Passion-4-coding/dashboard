@@ -1,7 +1,7 @@
-import { FC, useCallback, useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { MenuProps } from "rc-menu";
 import { Menu } from "antd";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { NAVIGATION_ITEMS, findItemKeyByRoute } from "../utils";
 import { INavigationItem, INavigationItemSimple } from "../types";
 import { AbilityContext } from "../../casl";

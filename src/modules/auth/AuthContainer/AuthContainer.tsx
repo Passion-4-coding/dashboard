@@ -1,6 +1,6 @@
 import { FC, ReactNode, useCallback, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { getToken } from "../api";
 import { axios } from "../../axios";
 import { InternalAxiosRequestConfig } from "axios";
@@ -10,12 +10,18 @@ import { fetchUser } from "../slice";
 import { useAbility } from "@casl/react";
 import { AbilityContext, setupAbilities } from "../../casl";
 
+const { VITE_DISCORD_CLIENT_ID, VITE_DISCORD_REDIRECT_URL } = import.meta.env;
+
+const getAuthLink = () => {
+  return `https://discord.com/api/oauth2/authorize?client_id=${VITE_DISCORD_CLIENT_ID}&redirect_uri=${VITE_DISCORD_REDIRECT_URL}&response_type=code&scope=identify`;
+};
+
 interface Props {
   children: ReactNode;
 }
 
 export const AuthContainer: FC<Props> = ({ children }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const ability = useAbility(AbilityContext);
   const dispatch = useDispatch<AppDispatch>();
@@ -57,8 +63,7 @@ export const AuthContainer: FC<Props> = ({ children }) => {
       Cookies.set("token", token.data);
     }
     if (!token) {
-      window.location.href =
-        "https://discord.com/api/oauth2/authorize?client_id=1073166922704764939&redirect_uri=http%3A%2F%2Flocalhost%3A5173&response_type=code&scope=identify";
+      window.location.href = getAuthLink();
     }
   }, [searchParams, dispatch]);
 
