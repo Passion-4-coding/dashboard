@@ -2,7 +2,6 @@ import { FC, ReactNode } from "react";
 import { Table as AntTable } from "antd";
 import { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { TableHeader } from "./TableHeader";
-import { FilterValue, SorterResult } from "antd/es/table/interface";
 import { IPaginationProps, SortTypes } from "../../app/types";
 import styles from "./Table.module.css";
 
@@ -28,7 +27,6 @@ export const Table: FC<Props<any>> = ({
   dataSource,
   total,
   onPaginationChange,
-  onSortChange,
   onRowClick,
   action,
   loading = false,
@@ -41,18 +39,7 @@ export const Table: FC<Props<any>> = ({
     },
   });
 
-  const handleChange = (
-    pagination: TablePaginationConfig,
-    filter: Record<string, FilterValue | null>,
-    sorter: SorterResult<unknown> | SorterResult<unknown>[]
-  ) => {
-    const sortParams = sorter as SorterResult<unknown>;
-    if (sorter && onSortChange) {
-      onSortChange(
-        sortParams.columnKey as string,
-        sortParams.order as SortTypes
-      );
-    }
+  const handleChange = (pagination: TablePaginationConfig) => {
     if (onPaginationChange && pagination.current && pagination.pageSize) {
       onPaginationChange(pagination.current, pagination.pageSize);
     }
