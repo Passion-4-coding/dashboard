@@ -1,0 +1,9 @@
+.id {
+  color: var(--color-gray-70);
+}
+
+.title-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

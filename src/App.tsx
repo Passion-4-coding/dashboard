@@ -1,4 +1,4 @@
-import { AuthContainer } from "./modules/auth/AuthContainer/AuthContainer";
+import { AuthContainer } from "./modules/auth";
 import { Routes } from "./layout/Routes";
 
 export const App = () => {

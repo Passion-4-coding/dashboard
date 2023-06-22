@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { auth } from '../modules/auth';
+import { quiz } from '../modules/quiz';
 
 
 export const store = configureStore({
   reducer: {
-    auth
+    auth,
+    quiz
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware({ serializableCheck: false })

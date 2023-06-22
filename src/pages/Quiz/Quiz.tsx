@@ -1,3 +1,10 @@
+import { CreateQuestionDrawer, QuestionsList } from "../../modules/quiz";
+
 export const Quiz = () => {
-  return <div>Quiz</div>;
+  return (
+    <div>
+      <QuestionsList />
+      <CreateQuestionDrawer />
+    </div>
+  );
 };

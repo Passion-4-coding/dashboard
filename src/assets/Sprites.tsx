@@ -51,3 +51,25 @@ export const IconNavArticles = () => (
     />
   </svg>
 );
+
+export const IconPlus = ({
+  stroke = "var(--color-white)",
+}: {
+  stroke?: string;
+}) => (
+  <svg
+    width="12"
+    height="12"
+    viewBox="0 0 12 12"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M1.5 6H10.5M6 10.5V1.5"
+      stroke={stroke}
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

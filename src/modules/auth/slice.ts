@@ -20,6 +20,7 @@ const slice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+
   },
   extraReducers: (builder) => builder
   // fetchList

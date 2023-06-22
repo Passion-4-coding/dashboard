@@ -18,6 +18,7 @@ export const Routes: FC = () => {
         ) : (
           <></>
         )}
+        <Route path={`/quiz`} element={<Quiz />} />
         {ability.can("read", "quiz") ? (
           <Route path={`/quiz`} element={<Quiz />} />
         ) : (

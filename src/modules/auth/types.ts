@@ -3,7 +3,7 @@ import { EScopes } from "../casl";
 
 export interface IAuthUser {
   id: string;
-  username: string;
+  name: string;
   avatar: string;
   scopes: EScopes[];
 }
