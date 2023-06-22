@@ -10,3 +10,7 @@ export const getQuestions = (pagination: IPaginationProps): AxiosPromise<IApiLis
 export const createQuestion = (question: IQuizQuestionFormValues): AxiosPromise<IQuizQuestion[]> => {
   return axios.post(`/quiz/questions`, question);
 }
+
+export const updateQuestion = (id: string, question: IQuizQuestionFormValues): AxiosPromise<IQuizQuestion[]> => {
+  return axios.patch(`/quiz/questions/${id}`, question);
+}

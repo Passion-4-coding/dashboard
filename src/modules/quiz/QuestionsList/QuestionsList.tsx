@@ -65,6 +65,10 @@ export const QuestionsList = () => {
     getQuestions();
   }, [getQuestions]);
 
+  const handleRowClick = (quiz: IQuizQuestion) => {
+    dispatch(actions.setQuestion(quiz));
+  };
+
   return (
     <Table
       action={
@@ -79,6 +83,7 @@ export const QuestionsList = () => {
       pagination={pagination}
       dataSource={list}
       columns={columns}
+      onRowClick={handleRowClick}
       loading={status === ApiStatuses.loading}
       onPaginationChange={handleChangePagination}
       total={{ title: "Questions", amount: total }}

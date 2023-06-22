@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IQuizSliceState } from './types';
+import { IQuizQuestion, IQuizSliceState } from './types';
 import { ApiStatuses, IPaginationProps } from '../../app/types';
 import { getQuestions } from './api';
 
@@ -7,7 +7,7 @@ export const initialState: IQuizSliceState = {
   list: [],
   status: ApiStatuses.initial,
   isCreateDrawerOpen: false,
-  selectedQuestionId: null,
+  selectedQuestion: null,
   pagination: {
     page: 1,
     pageSize: 10
@@ -32,6 +32,9 @@ const slice = createSlice({
     },
     setPagination(state: IQuizSliceState, action: PayloadAction<IPaginationProps>) {
       state.pagination = action.payload;
+    },
+    setQuestion(state: IQuizSliceState, action: PayloadAction<IQuizQuestion | null>) {
+      state.selectedQuestion = action.payload;
     },
   },
   extraReducers: (builder) => builder

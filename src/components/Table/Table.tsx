@@ -57,7 +57,7 @@ export const Table: FC<Props<any>> = ({
           current: _pagination.page,
           pageSize: _pagination.pageSize,
         }}
-        rowKey="id"
+        rowKey="_id"
         onRow={onRowClick ? onRow : undefined}
         onChange={handleChange}
         loading={loading}

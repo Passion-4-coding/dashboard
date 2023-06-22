@@ -1,7 +1,7 @@
 import { ApiStatuses, IPaginationProps, Nullable } from "../../app/types";
 
 export interface IQuizQuestion {
-  id: string;
+  _id: string;
   date: string;
   karmaRewardEarly: 15 | 20 | 25,
   karmaRewardLate: 5 | 10 | 15,
@@ -31,7 +31,7 @@ export interface IQuizSliceState {
   list: IQuizQuestion[];
   status: ApiStatuses;
   pagination: IPaginationProps;
+  selectedQuestion: Nullable<IQuizQuestion>;
   total: number;
   isCreateDrawerOpen: boolean;
-  selectedQuestionId: Nullable<string>;
 }
