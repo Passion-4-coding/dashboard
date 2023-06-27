@@ -15,11 +15,12 @@ export const setupAbilities = (scopes: EScopes[], ability: AnyMongoAbility) => {
     ]);
   }
   if (scopes.includes(EScopes.admin)) {
-    console.log(1)
     ability.update([
       { action: "read", subject: "quiz" },
       { action: "read", subject: "articles" },
       { action: "read", subject: "home" },
+      { action: "write", subject: "articles" },
+      { action: "publish", subject: "articles" },
     ]);
   }
 };

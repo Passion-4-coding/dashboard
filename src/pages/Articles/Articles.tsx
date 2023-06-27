@@ -1,3 +1,9 @@
+import { ArticlesList } from "../../modules/articles";
+
 export const Articles = () => {
-  return <div>Articles</div>;
+  return (
+    <div>
+      <ArticlesList />
+    </div>
+  );
 };
