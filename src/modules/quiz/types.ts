@@ -3,8 +3,8 @@ import { ApiStatuses, IPaginationProps, Nullable } from "../../app/types";
 export interface IQuizQuestion {
   _id: string;
   date: string;
-  karmaRewardEarly: 15 | 20 | 25,
-  karmaRewardLate: 5 | 10 | 15,
+  karmaRewardEarly: 25 | 30 | 35;
+  karmaRewardLate: 15 | 20 | 25;
   question: string;
   answer1: string;
   answer2: string;
@@ -16,8 +16,8 @@ export interface IQuizQuestion {
 
 export interface IQuizQuestionFormValues {
   date: string;
-  karmaRewardEarly: 15 | 20 | 25,
-  karmaRewardLate: 5 | 10 | 15,
+  karmaRewardEarly: 25 | 30 | 35;
+  karmaRewardLate: 15 | 20 | 25;
   question: string;
   answer1: string;
   answer2: string;

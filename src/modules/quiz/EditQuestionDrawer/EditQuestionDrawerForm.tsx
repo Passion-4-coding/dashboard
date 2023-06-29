@@ -89,7 +89,7 @@ export const EditQuestionForm: FC<Props> = ({ question }) => {
             rules={[{ required: true, message: "This field is required" }]}
           >
             <Select placeholder="Select reward">
-              {[15, 20, 25].map((item) => (
+              {[25, 30, 35].map((item) => (
                 <Option key={item} value={item}>
                   {item}
                 </Option>
@@ -102,7 +102,7 @@ export const EditQuestionForm: FC<Props> = ({ question }) => {
             rules={[{ required: true, message: "This field is required" }]}
           >
             <Select placeholder="Select reward">
-              {[5, 10, 15].map((item) => (
+              {[15, 20, 25].map((item) => (
                 <Option key={item} value={item}>
                   {item}
                 </Option>
