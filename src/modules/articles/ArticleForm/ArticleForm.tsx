@@ -1,31 +1,44 @@
 import { FC } from "react";
 import { Button, Form, Input, notification } from "antd";
 import {
+  IArticle,
   IArticleBaseFormValues,
   IArticleLanguageFormValues,
   TArticleLanguage,
 } from "../types";
-import { createArticle } from "../api";
+import { createArticle, updateArticle } from "../api";
 import { RichTextEditor } from "../../../components/RichTextEditor";
+import styles from "./ArticleForm.module.css";
 import { useNavigate } from "react-router-dom";
-import styles from "./CreateArticleForm.module.css";
+import { mapValues } from "../utils";
 
 const { TextArea } = Input;
 
 interface Props {
   language: TArticleLanguage;
   baseValues: IArticleBaseFormValues;
+  articles?: IArticle[];
 }
 
-export const CreateArticleForm: FC<Props> = ({ language, baseValues }) => {
+export const ArticleForm: FC<Props> = ({ language, baseValues, articles }) => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+
+  const article = articles
+    ? articles.find((a) => a.language === language)
+    : null;
 
   const onFinish = async (values: IArticleLanguageFormValues) => {
+    console.log(values);
     try {
-      await createArticle({
-        ...values,
-        language,
-      });
+      const mappedValues = mapValues(baseValues, values, language);
+      if (article) {
+        await updateArticle(article._id, mappedValues);
+        return;
+      }
+      const newArticle = await createArticle(mappedValues);
+
+      navigate(`/articles/${newArticle.data.slug}`);
     } catch {
       notification.success({
         message: "Error while creating article",
@@ -42,6 +55,7 @@ export const CreateArticleForm: FC<Props> = ({ language, baseValues }) => {
         initialValues={{
           active: true,
           pending: true,
+          ...article,
         }}
         onFinish={onFinish}
       >
@@ -99,7 +113,7 @@ export const CreateArticleForm: FC<Props> = ({ language, baseValues }) => {
         <footer className={styles.buttons}>
           <Form.Item className={styles["button-container"]}>
             <Button block type="primary" htmlType="submit">
-              Create
+              {article ? "Update" : "Create"}
             </Button>
           </Form.Item>
         </footer>

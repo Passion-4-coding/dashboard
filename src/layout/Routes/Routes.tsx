@@ -7,6 +7,7 @@ import { AbilityContext } from "../../modules/casl";
 import { NoAccess } from "../../pages/NoAccess";
 import { Layout } from "../Layout";
 import { CreateArticle } from "../../pages/CreateArticle";
+import { Article } from "../../pages/Article";
 
 export const Routes: FC = () => {
   const ability = useContext(AbilityContext);
@@ -31,7 +32,10 @@ export const Routes: FC = () => {
           <></>
         )}
         {ability.can("write", "articles") ? (
-          <Route path={`/articles/create`} element={<CreateArticle />} />
+          <>
+            <Route path={`/articles/create`} element={<CreateArticle />} />
+            <Route path={`/articles/:slug`} element={<Article />} />
+          </>
         ) : (
           <></>
         )}

@@ -1,22 +1,24 @@
 import { FC, useEffect } from "react";
-import { DatePicker, Form, Input, Switch } from "antd";
+import { Form, Input, Switch } from "antd";
 import { IArticleBaseFormValues } from "../types";
-import styles from "./CreateArticleBaseForm.module.css";
+import styles from "./ArticleBaseForm.module.css";
+import { DatePicker } from "../../../components/DatePicker";
 
 interface Props {
   onChange: (values: IArticleBaseFormValues) => void;
+  baseValues?: IArticleBaseFormValues;
 }
 
-export const CreateArticleBaseForm: FC<Props> = ({ onChange }) => {
+export const ArticleBaseForm: FC<Props> = ({ onChange, baseValues }) => {
   const [form] = Form.useForm();
-
-  useEffect(() => {
-    console.log(1);
-  }, []);
 
   const handleChange = () => {
     onChange(form.getFieldsValue());
   };
+
+  const initialValues = baseValues
+    ? { ...baseValues, publishedOn: new Date(baseValues.publishedOn) }
+    : { active: true, pending: true };
 
   return (
     <div className={styles.container}>
@@ -25,10 +27,7 @@ export const CreateArticleBaseForm: FC<Props> = ({ onChange }) => {
         form={form}
         autoComplete="off"
         onFieldsChange={handleChange}
-        initialValues={{
-          active: true,
-          pending: true,
-        }}
+        initialValues={initialValues}
       >
         <Form.Item label="Slug" name="slug">
           <Input placeholder="Enter slug" />

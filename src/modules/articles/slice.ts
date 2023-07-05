@@ -1,17 +1,26 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IArticlesSliceState } from './types';
 import { ApiStatuses, IPaginationProps } from '../../app/types';
-import { getArticles } from './api';
+import { getArticles, getArticlesBySlug } from './api';
 
 export const initialState: IArticlesSliceState = {
   list: [],
   status: ApiStatuses.initial,
+  articlesBySlugStatus: ApiStatuses.initial,
   pagination: {
     page: 1,
     pageSize: 10
   },
   total: 0
 };
+
+export const fetchArticlesBySlug = createAsyncThunk(
+  'articles/fetchArticlesBySlug',
+  async (slug: string) => {
+    const response = await getArticlesBySlug(slug);
+    return response.data;
+  }
+);
 
 export const fetchArticles = createAsyncThunk(
   'articles/fetchArticles',
@@ -41,6 +50,17 @@ const slice = createSlice({
   })
   .addCase(fetchArticles.rejected, (state) => {
     state.status = ApiStatuses.fail;
+  })
+  // fetchArticlesBySlug
+  .addCase(fetchArticlesBySlug.pending, (state) => {
+    state.articlesBySlugStatus = ApiStatuses.loading;
+  })
+  .addCase(fetchArticlesBySlug.fulfilled, (state, action) => {
+    state.articlesBySlugStatus = ApiStatuses.success;
+    state.articlesBySlug = action.payload;
+  })
+  .addCase(fetchArticlesBySlug.rejected, (state) => {
+    state.articlesBySlugStatus = ApiStatuses.fail;
   })
 });
 

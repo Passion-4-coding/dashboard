@@ -1,12 +1,12 @@
 import { ApiStatuses, IPaginationProps } from "../../app/types";
 
-export type TArticleLanguage = "ua" | "en" | "ru";
+export type TArticleLanguage = "ua" | "en";
 
 export interface IArticle {
   _id: string;
   createdOn: string;
   updatedOn: string;
-  publishedOn: string;
+  publishedOn: Date;
   slug: string;
   language: TArticleLanguage;
   title: string;
@@ -32,7 +32,7 @@ export interface IArticleSimple {
 
 export interface IArticleBaseFormValues {
   slug: string;
-  publishedOn: string;
+  publishedOn: Date;
   pending: boolean;
   active: boolean;
 }
@@ -48,9 +48,13 @@ export interface IArticleLanguageFormValues {
   keywordsSeo: string;
 }
 
+export interface IArticleFormValues extends IArticleBaseFormValues, IArticleLanguageFormValues {}
+
 export interface IArticlesSliceState {
   list: IArticleSimple[];
+  articlesBySlug?: IArticle[];
   status: ApiStatuses;
+  articlesBySlugStatus: ApiStatuses;
   pagination: IPaginationProps;
   total: number;
 }
