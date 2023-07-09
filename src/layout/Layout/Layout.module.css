@@ -1,7 +1,8 @@
 .sider-header {
-  padding: 18px 10px;
-  letter-spacing: 2px;
-  color: var(--color-primary)
+  padding: 18px 0px;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
 }
 
 .content {

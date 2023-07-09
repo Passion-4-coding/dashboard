@@ -28,6 +28,7 @@ export interface IArticleSimple {
   titleCompact: string;
   pending: boolean;
   active: boolean;
+  slug: string;
 }
 
 export interface IArticleBaseFormValues {

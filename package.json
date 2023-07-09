@@ -12,8 +12,6 @@
   "dependencies": {
     "@casl/ability": "^6.0.0",
     "@casl/react": "^3.0.1",
-    "@ckeditor/ckeditor5-build-classic": "^38.0.1",
-    "@ckeditor/ckeditor5-react": "^6.0.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@sentry/react": "^7.54.0",
     "@types/axios": "^0.14.0",
@@ -25,6 +23,7 @@
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.11.2",
     "vite-plugin-svgr": "^3.2.0"

@@ -1,7 +1,7 @@
 .menu:global(.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected) {
   background-color: var(--color-primary-10);
   border-radius: var(--border-radius);
-  color: var(--color-primary-80);
+  color: var(--color-primary);
 }
 
 .menu:global(.ant-menu:not(.ant-menu-horizontal) .ant-menu-item) {

@@ -64,7 +64,7 @@ export const ArticlesList = () => {
   }, [getArticles]);
 
   const handleRowClick = (quiz: IArticleSimple) => {
-    // Goto article page
+    navigate(`/articles/${quiz.slug}`);
   };
 
   const handleCreateNewArticles = () => {

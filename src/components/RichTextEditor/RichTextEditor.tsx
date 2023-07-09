@@ -1,21 +1,22 @@
 import { FC } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 interface Props {
   onChange?: (data: string) => void;
   value?: string;
 }
 
-export const RichTextEditor: FC<Props> = ({ onChange, value }) => {
-  console.log(value);
-  const handleChange = (event: unknown, editor: ClassicEditor) => {
-    if (onChange) {
-      onChange(editor.getData());
-    }
-  };
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [{ align: ["right", "center", "justify"] }],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link", "image", "code-block"],
+  ],
+};
 
-  return (
-    <CKEditor data={value} editor={ClassicEditor} onChange={handleChange} />
-  );
+export const RichTextEditor: FC<Props> = ({ onChange, value }) => {
+  return <ReactQuill value={value} onChange={onChange} modules={modules} />;
 };

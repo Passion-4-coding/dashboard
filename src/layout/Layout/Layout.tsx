@@ -14,8 +14,8 @@ interface Props {
 export const Layout: FC<Props> = ({ children }) => {
   return (
     <AntLayout>
-      <Sider className={styles.sider} width={150}>
-        <H2 className={styles["sider-header"]}>Dashboard</H2>
+      <Sider className={styles.sider} width={160}>
+        <H2 className={styles["sider-header"]}>&#60; DASHBOARD &#62;</H2>
         <Navigation />
       </Sider>
       <AntLayout className="site-layout">

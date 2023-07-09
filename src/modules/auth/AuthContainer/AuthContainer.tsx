@@ -52,15 +52,18 @@ export const AuthContainer: FC<Props> = ({ children }) => {
   };
 
   const handleInit = useCallback(async () => {
-    const token = Cookies.get("token");
+    let token = Cookies.get("token");
     if (token) {
       updateAxiosConfig(token);
       dispatch(fetchUser());
     }
     const code = searchParams.get("code");
     if (code && !token) {
-      const token = await getToken(code);
-      Cookies.set("token", token.data);
+      const tokenResponse = await getToken(code);
+      Cookies.set("token", tokenResponse.data);
+      token = tokenResponse.data;
+      updateAxiosConfig(token);
+      dispatch(fetchUser());
     }
     if (!token) {
       window.location.href = getAuthLink();
