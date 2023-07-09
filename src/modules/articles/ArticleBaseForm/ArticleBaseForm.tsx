@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Form, Input, Switch } from "antd";
 import { IArticleBaseFormValues } from "../types";
 import styles from "./ArticleBaseForm.module.css";
