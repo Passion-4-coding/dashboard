@@ -4,9 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
 import { actions } from "../slice";
-// import { CreateQuestionForm } from "./CreateQuestionForm";
-import styles from "./EditQuestionDrawer.module.css";
 import { EditQuestionForm } from "./EditQuestionDrawerForm";
+import styles from "./EditQuestionDrawer.module.css";
 
 export const EditQuestionDrawer: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,20 +26,21 @@ export const EditQuestionDrawer: FC = () => {
   };
 
   const onCloseHandler = () => {
-    dispatch(actions.setIsCreateDrawerOpen(false));
+    dispatch(actions.setQuestion(null));
   };
 
   return (
     <Drawer
       title="Edit question"
       open={!!question}
-      width={500}
+      width="50%"
       afterOpenChange={handleResetSearchParams}
-      closable={false}
       className={styles.drawer}
       onClose={onCloseHandler}
     >
-      {question && <EditQuestionForm question={question} />}
+      {question && (
+        <EditQuestionForm question={question} onClose={onCloseHandler} />
+      )}
     </Drawer>
   );
 };

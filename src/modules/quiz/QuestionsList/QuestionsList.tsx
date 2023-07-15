@@ -26,19 +26,17 @@ export const QuestionsList = () => {
       key: "question",
     },
     {
-      title: "Early reward",
-      dataIndex: "karmaRewardEarly",
-      key: "karmaRewardEarly",
+      title: "Complexity",
+      dataIndex: "complexity",
+      key: "complexity",
     },
     {
-      title: "Late reward",
-      dataIndex: "karmaRewardLate",
-      key: "karmaRewardLate",
-    },
-    {
-      title: "Correct answer",
-      dataIndex: "correctAnswer",
-      key: "correctAnswer",
+      title: "Correct choice",
+      key: "correct",
+      render: (question: IQuizQuestion) => {
+        const correctKey = `answer${question.correct}` as keyof IQuizQuestion;
+        return `${question.correct}: ${question[correctKey]}`;
+      },
     },
     {
       title: "Is active",

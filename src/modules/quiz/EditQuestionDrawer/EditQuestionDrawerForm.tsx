@@ -1,5 +1,13 @@
 import { FC } from "react";
-import { Button, Form, Input, Select, Switch, notification } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Segmented,
+  Select,
+  Switch,
+  notification,
+} from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { IQuizQuestion, IQuizQuestionFormValues } from "../types";
 import { actions, fetchQuestions } from "../slice";
@@ -12,9 +20,10 @@ const { TextArea } = Input;
 
 interface Props {
   question: IQuizQuestion;
+  onClose: () => void;
 }
 
-export const EditQuestionForm: FC<Props> = ({ question }) => {
+export const EditQuestionForm: FC<Props> = ({ question, onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const [form] = Form.useForm();
 
@@ -37,10 +46,6 @@ export const EditQuestionForm: FC<Props> = ({ question }) => {
     }
   };
 
-  const onCloseHandler = () => {
-    dispatch(actions.setQuestion(null));
-  };
-
   return (
     <div className={styles.form}>
       <Form
@@ -49,6 +54,7 @@ export const EditQuestionForm: FC<Props> = ({ question }) => {
         autoComplete="off"
         initialValues={{
           ...question,
+          complexity: Number(question.complexity),
         }}
         onFinish={onFinish}
       >
@@ -61,35 +67,28 @@ export const EditQuestionForm: FC<Props> = ({ question }) => {
             <TextArea placeholder="Enter question" />
           </Form.Item>
           <Form.Item
-            label="Answer first option"
-            name="answer1"
+            label="Answer A"
+            name="answerA"
             rules={[{ required: true, message: "This field is required" }]}
           >
-            <TextArea placeholder="Enter first option" />
+            <TextArea placeholder="Enter option A" />
           </Form.Item>
           <Form.Item
-            label="Answer second option"
-            name="answer2"
+            label="Answer B"
+            name="answerB"
             rules={[{ required: true, message: "This field is required" }]}
           >
-            <TextArea placeholder="Enter second option" />
+            <TextArea placeholder="Enter option B" />
           </Form.Item>
-          <Form.Item label="Answer third option" name="answer3">
-            <TextArea placeholder="Enter third option" />
+          <Form.Item label="Answer C" name="answerC">
+            <TextArea placeholder="Enter option C" />
           </Form.Item>
-          <Form.Item label="Answer fourth option" name="answer4">
-            <TextArea placeholder="Enter fourth option" />
+          <Form.Item label="Answer D" name="answerD">
+            <TextArea placeholder="Enter option D" />
           </Form.Item>
-          <Form.Item label="Correct answer" name="correctAnswer">
-            <TextArea placeholder="Correct answer" />
-          </Form.Item>
-          <Form.Item
-            label="Karma early reward"
-            name="karmaRewardEarly"
-            rules={[{ required: true, message: "This field is required" }]}
-          >
-            <Select placeholder="Select reward">
-              {[25, 30, 35].map((item) => (
+          <Form.Item label="Correct answer" name="correct">
+            <Select placeholder="Select correct option">
+              {["A", "B", "C", "D"].map((item) => (
                 <Option key={item} value={item}>
                   {item}
                 </Option>
@@ -97,17 +96,11 @@ export const EditQuestionForm: FC<Props> = ({ question }) => {
             </Select>
           </Form.Item>
           <Form.Item
-            label="Karma late reward"
-            name="karmaRewardLate"
+            label="Question complexity"
+            name="complexity"
             rules={[{ required: true, message: "This field is required" }]}
           >
-            <Select placeholder="Select reward">
-              {[15, 20, 25].map((item) => (
-                <Option key={item} value={item}>
-                  {item}
-                </Option>
-              ))}
-            </Select>
+            <Segmented options={[1, 2, 3, 4, 5]} />
           </Form.Item>
           <Form.Item
             label="Is question active"
@@ -119,7 +112,7 @@ export const EditQuestionForm: FC<Props> = ({ question }) => {
         </main>
         <footer className={styles.buttons}>
           <Form.Item className={styles["button-container"]}>
-            <Button block type="default" onClick={onCloseHandler}>
+            <Button block type="default" onClick={onClose}>
               Cancel
             </Button>
           </Form.Item>
