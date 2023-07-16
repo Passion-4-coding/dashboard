@@ -7,8 +7,8 @@ export const getArticles = (pagination: IPaginationProps): AxiosPromise<IApiList
   return axios.get(`/articles?page=${pagination.page}&pageSize=${pagination.pageSize}`);
 }
 
-export const getArticlesBySlug = (slug: string): AxiosPromise<IArticle[]> => {
-  return axios.get(`/articles/${slug}`);
+export const getArticlesBySlug = (slug: string): AxiosPromise<IApiList<IArticle>> => {
+  return axios.get(`/articles?slug=${slug}`);
 }
 
 export const createArticle = (article: IArticleFormValues): AxiosPromise<IArticle> => {

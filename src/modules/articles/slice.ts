@@ -57,7 +57,7 @@ const slice = createSlice({
   })
   .addCase(fetchArticlesBySlug.fulfilled, (state, action) => {
     state.articlesBySlugStatus = ApiStatuses.success;
-    state.articlesBySlug = action.payload;
+    state.articlesBySlug = action.payload.list;
   })
   .addCase(fetchArticlesBySlug.rejected, (state) => {
     state.articlesBySlugStatus = ApiStatuses.fail;

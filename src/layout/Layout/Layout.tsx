@@ -15,7 +15,7 @@ export const Layout: FC<Props> = ({ children }) => {
   return (
     <AntLayout>
       <Sider className={styles.sider} width={160}>
-        <H2 className={styles["sider-header"]}>&#60; DASHBOARD &#62;</H2>
+        <img src="/images/logo.png" alt="passion for coding" />
         <Navigation />
       </Sider>
       <AntLayout className="site-layout">

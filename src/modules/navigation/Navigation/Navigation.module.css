@@ -1,3 +1,7 @@
+.menu:global(.ant-menu:not(.ant-menu-horizontal)) {
+  padding-top: 20px;
+}
+
 .menu:global(.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected) {
   background-color: var(--color-primary-10);
   border-radius: var(--border-radius);
