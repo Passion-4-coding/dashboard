@@ -2,7 +2,6 @@ import { FC, ReactNode } from "react";
 import { Layout as AntLayout } from "antd";
 import { Header } from "../Header";
 import { Navigation } from "../../modules/navigation";
-import { H2 } from "../../components/Typography";
 import styles from "./Layout.module.css";
 
 const { Header: AntHeader, Content, Sider } = AntLayout;
