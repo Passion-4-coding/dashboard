@@ -8,6 +8,7 @@ import { NoAccess } from "../../pages/NoAccess";
 import { Layout } from "../Layout";
 import { CreateArticle } from "../../pages/CreateArticle";
 import { Article } from "../../pages/Article";
+import { Karma } from "../../pages/Karma";
 
 export const Routes: FC = () => {
   const ability = useContext(AbilityContext);
@@ -28,6 +29,11 @@ export const Routes: FC = () => {
         )}
         {ability.can("read", "articles") ? (
           <Route path={`/articles`} element={<Articles />} />
+        ) : (
+          <></>
+        )}
+        {ability.can("read", "karma") ? (
+          <Route path={`/karma`} element={<Karma />} />
         ) : (
           <></>
         )}

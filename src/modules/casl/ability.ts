@@ -19,6 +19,7 @@ export const setupAbilities = (scopes: EScopes[], ability: AnyMongoAbility) => {
       { action: "read", subject: "quiz" },
       { action: "read", subject: "articles" },
       { action: "read", subject: "home" },
+      { action: "read", subject: "karma" },
       { action: "write", subject: "articles" },
       { action: "publish", subject: "articles" },
     ]);

@@ -2,13 +2,15 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { auth } from '../modules/auth';
 import { quiz } from '../modules/quiz';
 import { articles } from '../modules/articles';
+import { karma } from '../modules/karma';
 
 
 export const store = configureStore({
   reducer: {
     auth,
     quiz,
-    articles
+    articles,
+    karma
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware({ serializableCheck: false })

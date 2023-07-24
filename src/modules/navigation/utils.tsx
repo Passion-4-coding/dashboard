@@ -1,4 +1,9 @@
-import { IconNavArticles, IconNavHome, IconNavQuiz } from "../../assets";
+import {
+  IconNavArticles,
+  IconNavHome,
+  IconNavQuiz,
+  IconNavKarma,
+} from "../../assets";
 import { INavigationItem, INavigationItemSimple } from "./types";
 
 export const NAVIGATION_ITEMS: INavigationItem[] = [
@@ -6,6 +11,11 @@ export const NAVIGATION_ITEMS: INavigationItem[] = [
     route: "/",
     name: "Home",
     icon: <IconNavHome />,
+  },
+  {
+    route: "/karma",
+    name: "Karma",
+    icon: <IconNavKarma />,
   },
   {
     route: "/quiz",

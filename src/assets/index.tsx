@@ -1,2 +1,8 @@
-export { IconNavHome, IconNavQuiz, IconNavArticles, IconPlus } from "./Sprites";
+export {
+  IconNavHome,
+  IconNavQuiz,
+  IconNavArticles,
+  IconNavKarma,
+  IconPlus,
+} from "./Sprites";
 export { ReactComponent as IconLogout } from "./logout.svg";

@@ -52,6 +52,24 @@ export const IconNavArticles = () => (
   </svg>
 );
 
+export const IconNavKarma = () => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 22 22"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M9.5 18.9V3.1C9.5 1.6 8.86 1 7.27 1H3.23C1.64 1 1 1.6 1 3.1V18.9C1 20.4 1.64 21 3.23 21H7.27C8.86 21 9.5 20.4 9.5 18.9ZM21 11.9V3.1C21 1.6 20.36 1 18.77 1H14.73C13.14 1 12.5 1.6 12.5 3.1V11.9C12.5 13.4 13.14 14 14.73 14H18.77C20.36 14 21 13.4 21 11.9Z"
+      stroke="var(--stroke)"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export const IconPlus = ({
   stroke = "var(--color-white)",
 }: {
