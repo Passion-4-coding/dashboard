@@ -5,9 +5,7 @@ import { AppDispatch, RootState } from "../../../app/store";
 import { Table } from "../../../components/Table";
 import { ColumnType } from "antd/es/table";
 import { ApiStatuses } from "../../../app/types";
-import { Button, Switch } from "antd";
-import { IconPlus } from "../../../assets";
-import { useSearchParams } from "react-router-dom";
+import { Switch } from "antd";
 import {
   actions,
   fetchTelegramMembers,
@@ -18,7 +16,6 @@ import { DATE_FORMAT } from "../../../app/constants";
 import { IMember } from "../../member";
 
 export const TelegramMembersList = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch<AppDispatch>();
 
   const {
@@ -63,11 +60,6 @@ export const TelegramMembersList = () => {
       render: (date: string) => format(new Date(date), DATE_FORMAT),
     },
   ] as ColumnType<ITelegramMember>[];
-
-  const handleCreateNewQuestion = () => {
-    searchParams.set("create", "true");
-    setSearchParams(searchParams);
-  };
 
   const handleChangePagination = (page: number, pageSize: number) => {
     dispatch(actions.setPagination({ page, pageSize }));
