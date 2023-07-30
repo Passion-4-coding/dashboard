@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IKarmaSliceState } from './types';
+import { IKarmaEntriesFilters, IKarmaSliceState } from './types';
 import { ApiStatuses, IPaginationProps } from '../../app/types';
-import { getTelegramMembers, updateTelegramMemberActive as _updateTelegramMemberActive } from './api';
+import { getTelegramMembers, updateTelegramMemberActive as _updateTelegramMemberActive, getEntries } from './api';
 
 export const initialState: IKarmaSliceState = {
   telegramMembers: [],
@@ -10,7 +10,15 @@ export const initialState: IKarmaSliceState = {
     page: 1,
     pageSize: 10
   },
-  telegramMembersTotal: 0
+  telegramMembersTotal: 0,
+  entries: [],
+  statusEntries: ApiStatuses.initial,
+  entriesPagination: {
+    page: 1,
+    pageSize: 10
+  },
+  entriesTotal: 0,
+  entriesFilters: {},
 };
 
 
@@ -18,6 +26,14 @@ export const fetchTelegramMembers = createAsyncThunk(
   'karma/fetchTelegramMembers',
   async (pagination: IPaginationProps) => {
     const response = await getTelegramMembers(pagination);
+    return response.data;
+  }
+);
+
+export const fetchKarmaEntries = createAsyncThunk(
+  'karma/fetchKarmaEntries',
+  async ({ pagination, filters }: { pagination: IPaginationProps, filters: Partial<IKarmaEntriesFilters> }) => {
+    const response = await getEntries(pagination, filters);
     return response.data;
   }
 );
@@ -34,11 +50,32 @@ const slice = createSlice({
   name: "karma",
   initialState,
   reducers: {
-    setPagination(state: IKarmaSliceState, action: PayloadAction<IPaginationProps>) {
+    setTelegramMembersPagination(state: IKarmaSliceState, action: PayloadAction<IPaginationProps>) {
       state.telegramMembersPagination = action.payload;
+    },
+    setKarmaEntriesPagination(state: IKarmaSliceState, action: PayloadAction<IPaginationProps>) {
+      state.entriesPagination = action.payload;
+    },
+    setKarmaEntriesFilters(state: IKarmaSliceState, action: PayloadAction<Partial<IKarmaEntriesFilters>>) {
+      state.entriesFilters = {
+        ...state.entriesFilters,
+        ...action.payload
+      }
     },
   },
   extraReducers: (builder) => builder
+  // fetchKarmaEntries
+  .addCase(fetchKarmaEntries.pending, (state) => {
+    state.statusEntries = ApiStatuses.loading;
+  })
+  .addCase(fetchKarmaEntries.fulfilled, (state, action) => {
+    state.statusEntries = ApiStatuses.success;
+    state.entries = action.payload.list;
+    state.entriesTotal = action.payload.total;
+  })
+  .addCase(fetchKarmaEntries.rejected, (state) => {
+    state.statusEntries = ApiStatuses.fail;
+  })
   // fetchArticles
   .addCase(fetchTelegramMembers.pending, (state) => {
     state.statusTelegramMembers = ApiStatuses.loading;

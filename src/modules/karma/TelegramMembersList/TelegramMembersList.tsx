@@ -13,7 +13,7 @@ import {
 } from "../slice";
 import { format } from "date-fns";
 import { DATE_FORMAT } from "../../../app/constants";
-import { IMember } from "../../member";
+import { IMember } from "../../members";
 
 export const TelegramMembersList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -62,16 +62,16 @@ export const TelegramMembersList = () => {
   ] as ColumnType<ITelegramMember>[];
 
   const handleChangePagination = (page: number, pageSize: number) => {
-    dispatch(actions.setPagination({ page, pageSize }));
+    dispatch(actions.setTelegramMembersPagination({ page, pageSize }));
   };
 
-  const getQuestions = useCallback(() => {
+  const getTelegramMembers = useCallback(() => {
     dispatch(fetchTelegramMembers(telegramMembersPagination));
   }, [dispatch, telegramMembersPagination]);
 
   useEffect(() => {
-    getQuestions();
-  }, [getQuestions]);
+    getTelegramMembers();
+  }, [getTelegramMembers]);
 
   return (
     <Table

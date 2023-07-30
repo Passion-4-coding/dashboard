@@ -3,6 +3,7 @@ import { auth } from '../modules/auth';
 import { quiz } from '../modules/quiz';
 import { articles } from '../modules/articles';
 import { karma } from '../modules/karma';
+import { members } from '../modules/members';
 
 
 export const store = configureStore({
@@ -10,7 +11,8 @@ export const store = configureStore({
     auth,
     quiz,
     articles,
-    karma
+    karma,
+    members
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware({ serializableCheck: false })
