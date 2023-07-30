@@ -7,6 +7,7 @@ export const setupAbilities = (scopes: EScopes[], ability: AnyMongoAbility) => {
   if (scopes.includes(EScopes.user)) {
     ability.update([
       { action: "read", subject: "home" },
+      { action: "read", subject: "karma" },
       { action: "read", subject: "karma-entries" },
       { action: "read", subject: "members-total-karma" },
     ]);
@@ -14,6 +15,7 @@ export const setupAbilities = (scopes: EScopes[], ability: AnyMongoAbility) => {
   if (scopes.includes(EScopes.moderator)) {
     ability.update([
       { action: "read", subject: "home" },
+      { action: "read", subject: "karma" },
       { action: "read", subject: "karma-entries" },
       { action: "read", subject: "members-total-karma" },
     ]);
