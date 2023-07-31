@@ -51,7 +51,7 @@ export const KarmaEntries = () => {
   ] as ColumnType<IKarmaEntry>[];
 
   const handleChangePagination = (page: number, pageSize: number) => {
-    dispatch(actions.setTelegramMembersPagination({ page, pageSize }));
+    dispatch(actions.setKarmaEntriesPagination({ page, pageSize }));
   };
 
   const getEntries = useCallback(() => {
