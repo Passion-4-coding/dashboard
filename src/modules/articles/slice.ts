@@ -1,23 +1,33 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IArticlesSliceState } from './types';
 import { ApiStatuses, IPaginationProps } from '../../app/types';
-import { getArticles, getArticlesBySlug } from './api';
+import { getArticles, getArticleById, getTag, getTags, getTagsForSearch } from './api';
 
 export const initialState: IArticlesSliceState = {
   list: [],
+  tags: [],
+  tagsForSearch: [],
   status: ApiStatuses.initial,
-  articlesBySlugStatus: ApiStatuses.initial,
+  tagsStatus: ApiStatuses.initial,
+  tagStatus: ApiStatuses.initial,
+  tagsForSearchStatus: ApiStatuses.initial,
+  articleStatus: ApiStatuses.initial,
   pagination: {
     page: 1,
     pageSize: 10
   },
-  total: 0
+  tagsPagination: {
+    page: 1,
+    pageSize: 10
+  },
+  total: 0,
+  tagsTotal: 0,
 };
 
-export const fetchArticlesBySlug = createAsyncThunk(
-  'articles/fetchArticlesBySlug',
-  async (slug: string) => {
-    const response = await getArticlesBySlug(slug);
+export const fetchArticle = createAsyncThunk(
+  'articles/fetchArticle',
+  async (id: string) => {
+    const response = await getArticleById(id);
     return response.data;
   }
 );
@@ -30,12 +40,39 @@ export const fetchArticles = createAsyncThunk(
   }
 );
 
+export const fetchATags = createAsyncThunk(
+  'articles/fetchATags',
+  async (pagination: IPaginationProps) => {
+    const response = await getTags(pagination);
+    return response.data;
+  }
+);
+
+export const fetchATag = createAsyncThunk(
+  'articles/fetchATag',
+  async (tagId: string) => {
+    const response = await getTag(tagId);
+    return response.data;
+  }
+);
+
+export const fetchATagsForSearch = createAsyncThunk(
+  'articles/fetchATagsForSearch',
+  async (search: string) => {
+    const response = await getTagsForSearch(search);
+    return response.data;
+  }
+);
+
 const slice = createSlice({
   name: "articles",
   initialState,
   reducers: {
     setPagination(state: IArticlesSliceState, action: PayloadAction<IPaginationProps>) {
       state.pagination = action.payload;
+    },
+    setTagsPagination(state: IArticlesSliceState, action: PayloadAction<IPaginationProps>) {
+      state.tagsPagination = action.payload;
     },
   },
   extraReducers: (builder) => builder
@@ -51,16 +88,50 @@ const slice = createSlice({
   .addCase(fetchArticles.rejected, (state) => {
     state.status = ApiStatuses.fail;
   })
+  // fetchATags
+  .addCase(fetchATags.pending, (state) => {
+    state.tagsStatus = ApiStatuses.loading;
+  })
+  .addCase(fetchATags.fulfilled, (state, action) => {
+    state.tagsStatus = ApiStatuses.success;
+    state.tags = action.payload.list;
+    state.tagsTotal = action.payload.total;
+  })
+  .addCase(fetchATags.rejected, (state) => {
+    state.tagsStatus = ApiStatuses.fail;
+  })
+  // fetchATagsForSearch
+  .addCase(fetchATagsForSearch.pending, (state) => {
+    state.tagsForSearchStatus = ApiStatuses.loading;
+  })
+  .addCase(fetchATagsForSearch.fulfilled, (state, action) => {
+    state.tagsForSearchStatus = ApiStatuses.success;
+    state.tagsForSearch = action.payload;
+  })
+  .addCase(fetchATagsForSearch.rejected, (state) => {
+    state.tagsForSearchStatus = ApiStatuses.fail;
+  })
+  // fetchATag
+  .addCase(fetchATag.pending, (state) => {
+    state.tagStatus = ApiStatuses.loading;
+  })
+  .addCase(fetchATag.fulfilled, (state, action) => {
+    state.tagStatus = ApiStatuses.success;
+    state.tag = action.payload;
+  })
+  .addCase(fetchATag.rejected, (state) => {
+    state.tagStatus = ApiStatuses.fail;
+  })
   // fetchArticlesBySlug
-  .addCase(fetchArticlesBySlug.pending, (state) => {
-    state.articlesBySlugStatus = ApiStatuses.loading;
+  .addCase(fetchArticle.pending, (state) => {
+    state.articleStatus = ApiStatuses.loading;
   })
-  .addCase(fetchArticlesBySlug.fulfilled, (state, action) => {
-    state.articlesBySlugStatus = ApiStatuses.success;
-    state.articlesBySlug = action.payload.list;
+  .addCase(fetchArticle.fulfilled, (state, action) => {
+    state.articleStatus = ApiStatuses.success;
+    state.article = action.payload;
   })
-  .addCase(fetchArticlesBySlug.rejected, (state) => {
-    state.articlesBySlugStatus = ApiStatuses.fail;
+  .addCase(fetchArticle.rejected, (state) => {
+    state.articleStatus = ApiStatuses.fail;
   })
 });
 

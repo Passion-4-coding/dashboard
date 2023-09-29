@@ -44,6 +44,11 @@ export const TelegramMembersList = () => {
       key: "tgname",
     },
     {
+      title: "Discord Id",
+      dataIndex: "discordId",
+      key: "discordId",
+    },
+    {
       title: "Is active",
       key: "active",
       render: (member: ITelegramMember) => (

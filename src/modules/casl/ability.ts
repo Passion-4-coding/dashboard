@@ -24,6 +24,8 @@ export const setupAbilities = (scopes: EScopes[], ability: AnyMongoAbility) => {
     ability.update([
       { action: "read", subject: "quiz" },
       { action: "read", subject: "articles" },
+      { action: "read", subject: "tags" },
+      { action: "write", subject: "tags" },
       { action: "read", subject: "home" },
       { action: "read", subject: "karma" },
       { action: "read", subject: "karma-telegram" },
@@ -31,6 +33,7 @@ export const setupAbilities = (scopes: EScopes[], ability: AnyMongoAbility) => {
       { action: "read", subject: "members-total-karma" },
       { action: "write", subject: "articles" },
       { action: "publish", subject: "articles" },
+      { action: "add", subject: "karma-entry" },
     ]);
   }
 };

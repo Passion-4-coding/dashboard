@@ -14,3 +14,7 @@ const getFilters = (filters: Partial<IMembersListFilters>) => {
 export const getMembers = (pagination: IPaginationProps, filters: Partial<IMembersListFilters>): AxiosPromise<IApiList<IMember>> => {
   return axios.get(`/members?page=${pagination.page}&pageSize=${pagination.pageSize}${getFilters(filters)}`);
 }
+
+export const getMembersForSelection = (search: string) => {
+  return axios.get(`/members/search?search=${search}`);
+}

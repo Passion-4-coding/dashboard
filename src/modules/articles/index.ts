@@ -1,3 +1,5 @@
-export { actions as articlesActions, articles, fetchArticlesBySlug } from "./slice";
+export { actions as articlesActions, articles, fetchArticle } from "./slice";
 export { ArticlesList } from "./ArticlesList";
-export { ArticleContainer } from "./ArticleContainer";
+export { ArticleTags } from "./ArticleTags";
+export { ArticleForm } from "./ArticleForm";
+export { SelectTag } from "./SelectTag";

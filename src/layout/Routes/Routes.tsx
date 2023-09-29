@@ -9,6 +9,8 @@ import { Layout } from "../Layout";
 import { CreateArticle } from "../../pages/CreateArticle";
 import { Article } from "../../pages/Article";
 import { Karma } from "../../pages/Karma";
+import { CreateTag } from "../../pages/CreateTag";
+import { EditTag } from "../../pages/EditTag";
 
 export const Routes: FC = () => {
   const ability = useContext(AbilityContext);
@@ -40,7 +42,15 @@ export const Routes: FC = () => {
         {ability.can("write", "articles") ? (
           <>
             <Route path={`/articles/create`} element={<CreateArticle />} />
-            <Route path={`/articles/:slug`} element={<Article />} />
+            <Route path={`/articles/:id`} element={<Article />} />
+          </>
+        ) : (
+          <></>
+        )}
+        {ability.can("write", "tags") ? (
+          <>
+            <Route path={`/tags/create`} element={<CreateTag />} />
+            <Route path={`/tags/:tagId`} element={<EditTag />} />
           </>
         ) : (
           <></>

@@ -21,4 +21,6 @@ export interface IMembersSliceState {
   pagination: IPaginationProps;
   total: number;
   filters: Partial<IMembersListFilters>;
+  membersForSelection: IMember[];
+  membersForSelectionStatus: ApiStatuses;
 }

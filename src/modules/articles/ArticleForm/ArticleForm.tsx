@@ -1,46 +1,41 @@
 import { FC } from "react";
-import { Button, Form, Input, notification } from "antd";
-import {
-  IArticle,
-  IArticleBaseFormValues,
-  IArticleLanguageFormValues,
-  TArticleLanguage,
-} from "../types";
+import { Button, Form, Input, Switch, notification } from "antd";
+import { IArticle, IArticleFormValues } from "../types";
 import { createArticle, updateArticle } from "../api";
 import { RichTextEditor } from "../../../components/RichTextEditor";
-import styles from "./ArticleForm.module.css";
 import { useNavigate } from "react-router-dom";
-import { mapValues } from "../utils";
+import { SelectMember } from "../../members";
+import { SelectTag } from "../SelectTag";
+import styles from "./ArticleForm.module.css";
+import { DatePicker } from "../../../components/DatePicker";
 
 const { TextArea } = Input;
 
 interface Props {
-  language: TArticleLanguage;
-  baseValues: IArticleBaseFormValues;
-  articles?: IArticle[];
+  article?: IArticle;
 }
 
-export const ArticleForm: FC<Props> = ({ language, baseValues, articles }) => {
+export const ArticleForm: FC<Props> = ({ article }) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const article = articles
-    ? articles.find((a) => a.language === language)
-    : null;
-
-  const onFinish = async (values: IArticleLanguageFormValues) => {
-    console.log(values);
+  const onFinish = async (values: IArticleFormValues) => {
     try {
-      const mappedValues = mapValues(baseValues, values, language);
+      const mappedValues = { ...values, language: "ua" } as IArticleFormValues;
       if (article) {
         await updateArticle(article._id, mappedValues);
+        notification.success({
+          message: "Article was successfully updated",
+        });
         return;
       }
       const newArticle = await createArticle(mappedValues);
-
+      notification.success({
+        message: "Article was successfully created",
+      });
       navigate(`/articles/${newArticle.data.slug}`);
     } catch {
-      notification.success({
+      notification.error({
         message: "Error while creating article",
       });
     }
@@ -53,13 +48,48 @@ export const ArticleForm: FC<Props> = ({ language, baseValues, articles }) => {
         form={form}
         autoComplete="off"
         initialValues={{
-          active: true,
-          pending: true,
           ...article,
+          author: article && article.author ? article.author._id : undefined,
+          publishedOn: article ? new Date(article.publishedOn) : undefined,
         }}
         onFinish={onFinish}
       >
         <main className={styles["form-content"]}>
+          <Form.Item label="Slug" name="slug">
+            <Input placeholder="Enter slug" />
+          </Form.Item>
+          <Form.Item label="Date" name="publishedOn">
+            <DatePicker />
+          </Form.Item>
+          <Form.Item label="Is active" name="active" valuePropName="checked">
+            <Switch />
+          </Form.Item>
+          <Form.Item label="Is pending" name="pending" valuePropName="checked">
+            <Switch />
+          </Form.Item>
+          <Form.Item
+            label="Author"
+            name="author"
+            rules={[{ required: true, message: "This field is required" }]}
+          >
+            <SelectMember
+              valueOption={
+                article && article.author
+                  ? {
+                      label: article.author.username,
+                      value: article.author._id,
+                    }
+                  : undefined
+              }
+            />
+          </Form.Item>
+          <Form.Item
+            label="Tags"
+            name="tags"
+            rules={[{ required: true, message: "This field is required" }]}
+          >
+            <SelectTag />
+          </Form.Item>
           <Form.Item
             label="Title"
             name="title"

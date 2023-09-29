@@ -43,3 +43,9 @@ export interface IKarmaSliceState {
   entriesTotal: number;
   entriesFilters: Partial<IKarmaEntriesFilters>;
 }
+
+export interface ICreateKarmaEntryValues {
+  memberId: string;
+  karma: number;
+  type: EKarmaType;
+}

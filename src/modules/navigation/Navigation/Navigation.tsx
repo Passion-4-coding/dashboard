@@ -14,7 +14,6 @@ export const Navigation: FC = () => {
   const [openKey, setOpenKey] = useState("");
 
   const filterItems = (item: INavigationItem | INavigationItemSimple) => {
-    console.log(item.name, ability.can("read", item.name.toLowerCase()));
     return ability.can("read", item.name.toLowerCase());
   };
 

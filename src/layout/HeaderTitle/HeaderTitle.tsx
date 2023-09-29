@@ -10,6 +10,8 @@ const getTitleFromPath = (path: string) => {
   const titleRoot = paths[paths.length - 2];
   if (titleRoot === "articles" && titleKey === "create")
     return "Create article";
+  if (titleRoot === "tags" && titleKey === "create") return "Create tag";
+  if (titleRoot === "tags") return "Update tag";
   if (!titleKey) return "Home";
   return titles[titleKey];
 };

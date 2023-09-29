@@ -1,4 +1,5 @@
 import { ApiStatuses, IPaginationProps } from "../../app/types";
+import { IMember } from "../members";
 
 export type TArticleLanguage = "ua" | "en";
 
@@ -19,6 +20,8 @@ export interface IArticle {
   keywordsSeo: string;
   pending: boolean;
   active: boolean;
+  author: IMember;
+  tags: IArticleTag[];
 }
 
 export interface IArticleSimple {
@@ -31,14 +34,11 @@ export interface IArticleSimple {
   slug: string;
 }
 
-export interface IArticleBaseFormValues {
+export interface IArticleFormValues {
   slug: string;
   publishedOn: Date;
   pending: boolean;
   active: boolean;
-}
-
-export interface IArticleLanguageFormValues {
   language: TArticleLanguage;
   title: string;
   content: string;
@@ -47,15 +47,36 @@ export interface IArticleLanguageFormValues {
   titleSeo: string;
   descriptionSeo: string;
   keywordsSeo: string;
+  author: string;
+  tags: string[];
 }
-
-export interface IArticleFormValues extends IArticleBaseFormValues, IArticleLanguageFormValues {}
 
 export interface IArticlesSliceState {
   list: IArticleSimple[];
-  articlesBySlug?: IArticle[];
+  tags: IArticleTag[];
+  tagsForSearch: IArticleTag[];
+  article?: IArticle;
   status: ApiStatuses;
-  articlesBySlugStatus: ApiStatuses;
+  tagsStatus: ApiStatuses;
+  tagStatus: ApiStatuses;
+  tagsForSearchStatus: ApiStatuses;
+  articleStatus: ApiStatuses;
   pagination: IPaginationProps;
+  tagsPagination: IPaginationProps;
   total: number;
+  tagsTotal: number;
+  tag?: IArticleTag;
+}
+
+export interface IArticleTag {
+  _id: string;
+  createdOn: string;
+  updatedOn: string;
+  name: string;
+  active: boolean;
+}
+
+export interface ICreateTagValues {
+  name: string;
+  active: boolean;
 }

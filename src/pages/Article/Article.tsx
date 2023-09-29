@@ -1,32 +1,38 @@
 import { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ArticleContainer, fetchArticlesBySlug } from "../../modules/articles";
+import { fetchArticle } from "../../modules/articles";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
+import { ArticleForm } from "../../modules/articles/ArticleForm";
 import styles from "./Article.module.css";
+import { LoaderWrapper } from "../../components/LoaderWrapper";
 
 export const Article = () => {
   const params = useParams();
   const dispatch = useDispatch<AppDispatch>();
 
-  const articlesBySlug = useSelector((state: RootState) => {
-    return state.articles.articlesBySlug;
+  const { article, articleStatus } = useSelector((state: RootState) => {
+    return state.articles;
   });
 
-  const getArticlesBySlug = useCallback(() => {
-    if (!params.slug) return;
-    dispatch(fetchArticlesBySlug(params.slug));
+  const getArticle = useCallback(() => {
+    if (!params.id) return;
+    dispatch(fetchArticle(params.id));
   }, [params, dispatch]);
 
   useEffect(() => {
-    getArticlesBySlug();
-  }, [getArticlesBySlug]);
-
-  if (!articlesBySlug) return null;
+    getArticle();
+  }, [getArticle]);
 
   return (
-    <div className={styles.container}>
-      <ArticleContainer articles={articlesBySlug} />
-    </div>
+    <LoaderWrapper status={articleStatus}>
+      {article ? (
+        <div className={styles.container}>
+          <ArticleForm article={article} />
+        </div>
+      ) : (
+        <></>
+      )}
+    </LoaderWrapper>
   );
 };

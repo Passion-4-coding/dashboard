@@ -1,4 +1,4 @@
-import { IArticleSimple } from "../types";
+import { IArticleSimple, IArticleTag } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
 import { Table } from "../../../components/Table";
@@ -7,15 +7,15 @@ import { ApiStatuses } from "../../../app/types";
 import { Button } from "antd";
 import { IconPlus } from "../../../assets";
 import { useNavigate } from "react-router-dom";
-import { actions, fetchArticles } from "../slice";
+import { actions, fetchATags } from "../slice";
 import { useCallback, useEffect } from "react";
 import { format } from "date-fns";
 import { DATE_FORMAT } from "../../../app/constants";
 
-export const ArticlesList = () => {
+export const ArticleTags = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { list, status, pagination, total } = useSelector(
+  const { tags, tagsStatus, tagsPagination, tagsTotal } = useSelector(
     (state: RootState) => {
       return state.articles;
     }
@@ -23,9 +23,9 @@ export const ArticlesList = () => {
 
   const columns = [
     {
-      title: "Title",
-      dataIndex: "titleCompact",
-      key: "titleCompact",
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Created",
@@ -40,55 +40,47 @@ export const ArticlesList = () => {
       render: (date: string) => format(new Date(date), DATE_FORMAT),
     },
     {
-      title: "Pending",
-      dataIndex: "pending",
-      key: "pending",
-    },
-    {
       title: "Active",
       dataIndex: "active",
       key: "active",
+      render: (active: boolean) => (active ? "Yes" : "No"),
     },
   ] as ColumnType<IArticleSimple>[];
 
-  const handleChangePagination = (page: number, pageSize: number) => {
-    dispatch(actions.setPagination({ page, pageSize }));
-  };
-
   const getArticles = useCallback(() => {
-    dispatch(fetchArticles(pagination));
-  }, [dispatch, pagination]);
+    dispatch(fetchATags(tagsPagination));
+  }, [dispatch, tagsPagination]);
 
   useEffect(() => {
     getArticles();
   }, [getArticles]);
 
-  const handleRowClick = (article: IArticleSimple) => {
-    navigate(`/articles/${article._id}`);
+  const handleRowClick = (tag: IArticleTag) => {
+    navigate(`/tags/${tag._id}`);
   };
 
-  const handleCreateNewArticles = () => {
-    navigate("/articles/create");
+  const handleCreateNewTag = () => {
+    navigate("/tags/create");
+  };
+
+  const handleChangePagination = (page: number, pageSize: number) => {
+    dispatch(actions.setTagsPagination({ page, pageSize }));
   };
 
   return (
     <Table
       action={
-        <Button
-          onClick={handleCreateNewArticles}
-          type="primary"
-          icon={<IconPlus />}
-        >
-          Create Article
+        <Button onClick={handleCreateNewTag} type="primary" icon={<IconPlus />}>
+          Create Tag
         </Button>
       }
-      pagination={pagination}
-      dataSource={list}
+      pagination={tagsPagination}
+      dataSource={tags}
       columns={columns}
       onRowClick={handleRowClick}
-      loading={status === ApiStatuses.loading}
+      loading={tagsStatus === ApiStatuses.loading}
       onPaginationChange={handleChangePagination}
-      total={{ title: "Articles", amount: total }}
+      total={{ title: "Articles", amount: tagsTotal }}
     />
   );
 };

@@ -1,11 +1,13 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IMembersListFilters, IMembersSliceState } from './types';
 import { ApiStatuses, IPaginationProps } from '../../app/types';
-import { getMembers } from './api';
+import { getMembers, getMembersForSelection } from './api';
 
 export const initialState: IMembersSliceState = {
   list: [],
+  membersForSelection: [],
   status: ApiStatuses.initial,
+  membersForSelectionStatus: ApiStatuses.initial,
   pagination: {
     page: 1,
     pageSize: 10
@@ -18,6 +20,14 @@ export const fetchMembers = createAsyncThunk(
   'karma/fetchMembers',
   async ({ pagination, filters }: { pagination: IPaginationProps, filters: Partial<IMembersListFilters> }) => {
     const response = await getMembers(pagination, filters);
+    return response.data;
+  }
+);
+
+export const fetchMembersForSelection = createAsyncThunk(
+  'karma/fetchMembersForSelection',
+  async ({ search }: { search: string }) => {
+    const response = await getMembersForSelection(search);
     return response.data;
   }
 );
@@ -48,6 +58,16 @@ const slice = createSlice({
   })
   .addCase(fetchMembers.rejected, (state) => {
     state.status = ApiStatuses.fail;
+  })
+  .addCase(fetchMembersForSelection.pending, (state) => {
+    state.membersForSelectionStatus = ApiStatuses.loading;
+  })
+  .addCase(fetchMembersForSelection.fulfilled, (state, action) => {
+    state.membersForSelectionStatus = ApiStatuses.success;
+    state.membersForSelection = action.payload;
+  })
+  .addCase(fetchMembersForSelection.rejected, (state) => {
+    state.membersForSelectionStatus = ApiStatuses.fail;
   })
 });
 

@@ -1,5 +1,5 @@
 import { AxiosPromise } from "axios";
-import { IKarmaEntriesFilters, IKarmaEntry, ITelegramMember } from "./types";
+import { ICreateKarmaEntryValues, IKarmaEntriesFilters, IKarmaEntry, ITelegramMember } from "./types";
 import { axios } from "../axios";
 import { IApiList, IPaginationProps } from "../../app/types";
 
@@ -16,6 +16,14 @@ const getFilters = (filters: Partial<IKarmaEntriesFilters>) => {
 
 export const getEntries = (pagination: IPaginationProps, filters: Partial<IKarmaEntriesFilters>): AxiosPromise<IApiList<IKarmaEntry>> => {
   return axios.get(`/karma-entries?page=${pagination.page}&pageSize=${pagination.pageSize}${getFilters(filters)}`);
+}
+
+export const addEntry = (entry: ICreateKarmaEntryValues) => {
+  return axios.put(`/karma-entries`, entry);
+}
+
+export const updateEntry = (id: string, entry: Partial<ICreateKarmaEntryValues>) => {
+  return axios.patch(`/karma-entries/${id}`, entry);
 }
 
 export const getTelegramMembers = (pagination: IPaginationProps): AxiosPromise<IApiList<ITelegramMember>> => {

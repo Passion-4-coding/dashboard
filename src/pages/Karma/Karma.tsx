@@ -1,7 +1,11 @@
 import { Tabs, TabsProps } from "antd";
 import { useAbility } from "@casl/react";
 import { AbilityContext } from "../../modules/casl";
-import { TelegramMembersList, KarmaEntries } from "../../modules/karma";
+import {
+  TelegramMembersList,
+  KarmaEntries,
+  AddKarmaEntry,
+} from "../../modules/karma";
 import { MembersList } from "../../modules/members";
 import styles from "./Karma.module.css";
 
@@ -28,6 +32,14 @@ export const Karma = () => {
       key: "members-total-karma",
       label: "Members total karma",
       children: <MembersList />,
+    });
+  }
+
+  if (ability.can("add", "karma-entry")) {
+    items.push({
+      key: "add-karma-entry",
+      label: "Add karma entry",
+      children: <AddKarmaEntry />,
     });
   }
 
