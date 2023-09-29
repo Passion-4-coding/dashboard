@@ -1,1 +1,0 @@
-export { ArticleBaseForm } from "./ArticleBaseForm";

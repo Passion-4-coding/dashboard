@@ -1,4 +1,4 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { TagForm } from "../../modules/articles/TagForm";
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

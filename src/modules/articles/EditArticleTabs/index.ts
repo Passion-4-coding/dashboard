@@ -1,1 +1,0 @@
-export { EditArticleTabs } from "./EditArticleTabs";
