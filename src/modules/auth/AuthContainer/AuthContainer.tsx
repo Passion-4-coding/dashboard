@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "../../../app/store";
 import { fetchUser } from "../slice";
 import { useAbility } from "@casl/react";
 import { AbilityContext, setupAbilities } from "../../casl";
+import { ApiStatuses } from "../../../app/types";
 
 const { VITE_DISCORD_CLIENT_ID, VITE_DISCORD_REDIRECT_URL } = import.meta.env;
 
@@ -26,8 +27,8 @@ export const AuthContainer: FC<Props> = ({ children }) => {
   const ability = useAbility(AbilityContext);
   const dispatch = useDispatch<AppDispatch>();
 
-  const user = useSelector((state: RootState) => {
-    return state.auth.user;
+  const { user, status } = useSelector((state: RootState) => {
+    return state.auth;
   });
 
   const updateAxiosConfig = (token: string) => {
@@ -73,6 +74,13 @@ export const AuthContainer: FC<Props> = ({ children }) => {
   useEffect(() => {
     handleInit();
   }, [handleInit]);
+
+  useEffect(() => {
+    if (status === ApiStatuses.fail) {
+      Cookies.remove("token");
+      location.reload();
+    }
+  }, [status]);
 
   useEffect(() => {
     if (!user) return;
